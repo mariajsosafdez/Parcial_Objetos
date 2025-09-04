@@ -18,6 +18,7 @@ public class Main {
         System.out.println("7. Registrar una persona");//persona
         System.out.println("8. Comprar un carro (carro-persona)");//incidente persona carro
         System.out.println("9. Registrar un incidente"); //relacionar carro persona
+        //TODO LOS COMENTARIOS AAAAAAAAAAAAAAAAAAAA
         System.out.println("0. Chao 👋🗿");
 
     }
@@ -128,22 +129,22 @@ public class Main {
                     break;
                 case 2: //Marca con más incidentes
                     //toDo fakin cosa
-                    int numIncidentes;
-                    int maxIncidente = 0;
-                    Marca marcaIncidente = marcas.getFirst();
-                    for (int i = 0; i < marcas.size(); i++) {
-                        for (int j = 0; j < carros.size(); j++) {
-                            for (int k = 0; k < duenos.size(); k++) {
-                                numIncidentes = marcas.get(i).getCarros().get(j).getDuenos().get(k).getIncidentes().size();
-
-                                if (numIncidentes > maxIncidente) {
-                                    maxIncidente = numIncidentes;
-                                    marcaIncidente = marcas.get(i);
-                                }
-                            }
-                        }
-                    }
-                    System.out.println("La marca con más incidentes es: " + marcaIncidente.getNombre());
+//                    int numIncidentes;
+//                    int maxIncidente = 0;
+//                    Marca marcaIncidente = marcas.getFirst();
+//                    for (int i = 0; i < marcas.size(); i++) {
+//                        for (int j = 0; j < carros.size(); j++) {
+//                            for (int k = 0; k < duenos.size(); k++) {
+//                                numIncidentes = marcas.get(i).getCarros().get(j).getDuenos().get(k).getIncidentes().size();
+//
+//                                if (numIncidentes > maxIncidente) {
+//                                    maxIncidente = numIncidentes;
+//                                    marcaIncidente = marcas.get(i);
+//                                }
+//                            }
+//                        }
+//                    }
+//                    System.out.println("La marca con más incidentes es: " + //    marcaIncidente.getNombre());
                     break;
                 case 3: //Pais de origen más común y cantidad
                     int contadorPais = 0;
@@ -170,14 +171,99 @@ public class Main {
                     }
                     break;
                 case 5: //marca
+                    System.out.println("Ingrese el codigo de la marca");
+                    long codigo = Integer.parseInt(sc.nextLine());
+                    System.out.println("Ingrese el nombre de la marca");
+                    String nombre = sc.nextLine();
+                    System.out.println("Ingrese el pais");
+                    String pais = sc.nextLine();
+                    boolean m = false;
+                    for (Marca marca : marcas) {
+                        if (marca.getId() == codigo || marca.getNombre().equals(nombre)) {
+                            m = true;
+                            break;
+                        }
+                    }
+                    if (m) {
+                        System.out.println("Marca ya registrada, bobote");
+                        break;
+                    }
+                    Marca marca = new Marca(codigo, nombre, pais);
+                    marcas.add(marca);
                     break;
-                case 6: //carromarca
+                case 6: //carro marca
+                    System.out.println("Ingrese la placa del carro");
+                    String placa = sc.nextLine();
+                    System.out.println("Ingrese el modelo del carro");
+                    String modelo = sc.nextLine();
+                    System.out.println("Ingrese el año del carro");
+                    int anio = Integer.parseInt(sc.nextLine());
+                    boolean c = false;
+                    for (Carro carro : carros) {
+                        if (carro.getPlaca().equals(placa)) {
+                            c = true;
+                            break;
+                        }
+                    }
+                    if (c) {
+                        System.out.println("Placa ya registrada, bobote");
+                        break;
+                    }
+                    Carro carro = new Carro(placa, modelo, anio);
+                    carros.add(carro);
                     break;
                 case 7: //persona
+                    System.out.println("Ingrese la cédula");
+                    long cc = Long.parseLong(sc.nextLine());
+                    System.out.println("Ingrese su nombre");
+                    String nombreD = sc.nextLine();
+                    System.out.println("Ingrese su apellido");
+                    String apellido = sc.nextLine();
+                    System.out.println("Ingrese su teléfono");
+                    String telefono = sc.nextLine();
+                    boolean d = false;
+                    for (Dueno dueno : duenos) {
+                        if (dueno.getCedula() == cc) {
+                            d = true;
+                            break;
+                        }
+                    }
+                    if (d) {
+                        System.out.println("Persona ya registrada, bobote");
+                        break;
+                    }
+                    Dueno dueno = new Dueno(cc, nombreD, apellido, telefono);
+                    duenos.add(dueno);
                     break;
                 case 8: //persona carro
+                    System.out.println("Ingrese el id de la persona");
+                    long idD = Long.parseLong(sc.nextLine());
+                    System.out.println("Ingrese la placa del carro");
+                    String placaC = sc.nextLine();
+                    Dueno dueno11 = null;
+                    Carro carro11 = null;
+                    for (Dueno dueno1 : duenos) {
+                        if (dueno1.getCedula() == idD) {
+                            dueno11 = dueno1;
+                            break;
+                        }
+                    }
+                    for (Carro carro1 : carros){
+                        if(carro1.getPlaca().equals(placaC)){
+                            carro11 = carro1;
+                            break;
+                        }
+                    }
+                    if (carro11 == null || dueno11 == null){
+                        System.out.println("el carro o el usuario no existen");
+                        break;
+                    }
+                    dueno11.vincularCarro(carro11);
                     break;
                 case 9: //incidente persona carro
+                    System.out.println("Ingrese el id del incidente");
+
+                    System.out.println();
                     break;
                 case 0: //chao
                     System.out.println("Chao con adiós 👋");
