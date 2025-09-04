@@ -18,7 +18,7 @@ public class Main {
         System.out.println("7. Registrar una persona");//persona
         System.out.println("8. Comprar un carro (carro-persona)");//incidente persona carro
         System.out.println("9. Registrar un incidente"); //relacionar carro persona
-        //TODO LOS COMENTARIOS AAAAAAAAAAAAAAAAAAAA
+        //No hubo presupuesto para lo de los comentarios
         System.out.println("0. Chao 👋🗿");
 
     }
@@ -128,7 +128,7 @@ public class Main {
                     System.out.println("La marca más vendida es: " + marcaMasVendida.getNombre());
                     break;
                 case 2: //Marca con más incidentes
-                    //toDo fakin cosa
+                    //toDo fkin cosa
 //                    int numIncidentes;
 //                    int maxIncidente = 0;
 //                    Marca marcaIncidente = marcas.getFirst();
@@ -144,7 +144,7 @@ public class Main {
 //                            }
 //                        }
 //                    }
-//                    System.out.println("La marca con más incidentes es: " + //    marcaIncidente.getNombre());
+//                    System.out.println("La marca con más incidentes es: " +marcaIncidente.getNombre());
                     break;
                 case 3: //Pais de origen más común y cantidad
                     int contadorPais = 0;
@@ -248,22 +248,60 @@ public class Main {
                             break;
                         }
                     }
-                    for (Carro carro1 : carros){
-                        if(carro1.getPlaca().equals(placaC)){
+                    for (Carro carro1 : carros) {
+                        if (carro1.getPlaca().equals(placaC)) {
                             carro11 = carro1;
                             break;
                         }
                     }
-                    if (carro11 == null || dueno11 == null){
+                    if (carro11 == null || dueno11 == null) {
                         System.out.println("el carro o el usuario no existen");
                         break;
                     }
                     dueno11.vincularCarro(carro11);
                     break;
                 case 9: //incidente persona carro
+                    // fixme como el segundo punto de alguna manera necesitaba relacionar el incidente con un vehículo, me puse a añadir una manera de relacionar toda esta cosa (spoiler: no me dio por el tiempo)(al menos el resto funciona (creo))
                     System.out.println("Ingrese el id del incidente");
+                    long idI = Long.parseLong(sc.nextLine());
+                    System.out.println("Ingrese la persona que tuvo el incidente");
+                    long idDI = Long.parseLong(sc.nextLine());
+                    //System.out.println("Ingrese el vehiculo del accidente");
+                    //String placaI = sc.nextLine();
+                    System.out.println("Ingrese el tipo de incidente");
+                    String tipoincd = sc.nextLine();
+                    System.out.println("Ingrese la fecha del incidente");
+                    String fechaIncd = sc.nextLine();
+                    System.out.println("Ingrese un numero de telefono");
+                    String itelf = sc.nextLine();
 
-                    System.out.println();
+                    boolean in = false;
+                    for (Incidente incidente : incidentes) {
+                        if (incidente.getCodigo() == idI) {
+                            in = true;
+                            break;
+                        }
+                    }
+                    if (in) {
+                        System.out.println("Ese incidente ya existe, bobote");
+                        break;
+                    }
+                    Incidente ind = new Incidente(idI,tipoincd,fechaIncd,itelf);
+
+                    Dueno dueno22= null;
+                    for (Dueno dueno1 : duenos) {
+                        if (dueno1.getCedula() == idDI) {
+                            dueno22 = dueno1;
+                            break;
+                        }
+                    }
+                    if (dueno22 == null){
+                        System.out.println("Usuario no existe, bobote");
+                        break;
+                    }
+                    dueno22.agregarIncidente(ind);
+
+                    //Todo La idea acá era hacer un arreglo que contuviera el carro del incidente y el incidente, pero me di cuenta que necesito otra clase jaja.
                     break;
                 case 0: //chao
                     System.out.println("Chao con adiós 👋");
